@@ -1,0 +1,637 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" targetNamespace="urn:mojikiban:ipa:go:jp:mji" xmlns="urn:mojikiban:ipa:go:jp:mji" elementFormDefault="qualified" version="1.0">
+	<xs:annotation>
+		<xs:documentation>
+		MJ文字情報一覧表(http://mojikiban.ipa.go.jp/1311.html)のXMLスキーマ
+		</xs:documentation>
+		<xs:appinfo>
+			<dct:title xml:lang="ja">MJ文字情報一覧表スキーマ</dct:title>
+			<dct:license>http://creativecommons.org/licenses/by-sa/2.1/jp/</dct:license>
+			<cc:license>http://creativecommons.org/licenses/by-sa/2.1/jp/</cc:license>
+			<dct:issued>2018-01-26</dct:issued>
+			<dct:creator>
+				<foaf:name xml:lang="en">Information-technology Promotion Agency, Japan.</foaf:name>
+				<foaf:name xml:lang="ja">独立行政法人情報処理推進機構</foaf:name>
+				<foaf:homepage>http://www.ipa.go.jp/</foaf:homepage>
+			</dct:creator>
+			<dct:version>005.02</dct:version>
+		</xs:appinfo>
+	</xs:annotation>
+	
+	<xs:element name="MJ文字情報一覧表">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MJ文字情報" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="MJ文字情報一覧表バージョン型" use="required"/>
+			<xs:attribute name="issued" type="xs:date"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="MJ文字情報">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MJ文字図形名" type="MJ文字図形名型" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字情報一覧表内で一意に定めた文字図形の名称。
+							MJ文字情報一覧表 項目一覧の「MJ文字図形名」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+
+				<xs:element name="戸籍統一文字番号" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名に対応する戸籍統一文字番号
+							MJ文字情報一覧表 項目一覧の「戸籍統一文字番号」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:union memberTypes="戸籍統一文字番号型 空型"/>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="住基ネット統一文字コード" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名に対応する住民基本台帳ネットワークシステム統一文字コード
+							MJ文字情報一覧表 項目一覧の「住基ネット統一文字コード」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:union memberTypes="住基ネット統一文字コード型 空型"/>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="入管正字コード" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+						MJ文字図形名に対応する平成23年法務省告示第582号第二項第四号 正字のコード
+						平成23年法務省告示第582号第二項第四号に示されたものであり、「工業標準化法（昭和二十四年法律第百八十五号）に基づく日本工業規格（以下「日本工業規格」という。）Ｘ〇二二一号（以下「国際符号化文字集合」という。）に規定する漢字（国際符号化文字集合附属書ＪＡ日本文字部分レパートリに該当するものに限る。）及び別表第一に定める漢字をいう」
+						MJ文字情報一覧表 項目一覧の「入管正字コード」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:union memberTypes="入管正字コード型 空型"/>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="入管外字コード" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+						MJ文字図形名に対応する平成23年法務省告示第582号第二項第七号 
+						平成23年法務省告示第582号第二項第七号に示された「国際符号化文字集合に規定する私用文字として別表第二に定める文字の符号化表現」の16進数を記した。
+						MJ文字情報一覧表 項目一覧の「入管外字コード」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:union memberTypes="入管外字コード型 空型"/>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:element name="漢字施策" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字情報一覧表 項目一覧の「漢字施策」に対応する。
+							項目の値が、それぞれ「常用漢字」の場合には常用漢字属性をtrue・人名用漢字属性をtrueに、
+							「人名用漢字」の場合には常用漢字属性をtrue・人名用漢字属性をfalseに、
+							値なしの場合には常用漢字属性をfalse・人名用漢字属性をfalseにとした。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="常用漢字" type="xs:boolean" use="required">
+							<xs:annotation>
+								<xs:documentation xml:lang="ja">
+								「常用漢字」は、常用漢字表（平成22年11月30日内閣告示）に示された通用字体（常用漢字表で括弧が添えられていない漢字）に示された漢字である。MJ文字図形名が「漢字漢字」に対応する場合はtrue、対応しない場合はfalseとした。
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="人名用漢字" type="xs:boolean" use="required">
+							<xs:annotation>
+								<xs:documentation xml:lang="ja">
+								「人名用漢字」は、戸籍法施行規則別表第二の「漢字の表一・二」に示された漢字である。MJ文字図形名が「人名用漢字」に対応する場合はtrue、対応しない場合はfalseとした。
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="JISX0213" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名が対応するJIS X 0213:2012に関する情報を記した。
+							MJ文字情報一覧表 項目一覧の「X0213」、「X0213 包摂区分」及び「X0213 包摂連番」に対応する情報を含む要素である。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="面区点位置">
+								<xs:annotation>
+									<xs:documentation>
+										MJ文字図形名が対応するJIS X 0213:2012の面区点位置を記した。
+										MJ文字情報一覧表 項目一覧の「X0213」に対応する。
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="JISX0213型">
+											<xs:attribute name="水準" type="JISX0213水準型">
+												<xs:annotation>
+													<xs:documentation>
+														面区点位置要素の値が属するJIS X 0213 実装水準を記した。
+														MJ文字情報一覧表 項目一覧には存在しない項目
+													</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="包摂連番" type="JISX0213包摂連番型" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>
+										JIS X 0213:2012の漢字の字体の包摂規準を適用させると面区点位置に対応する場合に、包摂規準の連番を記した。
+										MJ文字情報一覧表 項目一覧「X0213 包摂連番」に対応する。
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="包摂区分" type="JISX0213包摂区分型">
+								<xs:annotation>
+									<xs:documentation>
+										「0」は、該当する文字がJIS X 0213:2012規格票の例示する字体に相当する字形であることを示す。「2」は、該当する文字がJIS X 0213:2012の包摂規準を適用できる字体に相当する字形であることを示す。
+										MJ文字情報一覧表 項目一覧「X0213 包摂区分」に対応する。
+									</xs:documentation>
+								</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="JISX0212" type="JISX0212型" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名が対応するJIS X 0212-1990の区点コードを記載した。
+							MJ文字情報一覧表 項目一覧「X0212」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+
+				<xs:element name="UCS" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名が対応するISO/IEC 10646:2017に関する情報を記した。
+							MJ文字情報一覧表 項目一覧の「対応するUCS」、「UCS対応カテゴリー」及び「対応する互換漢字」に対応する情報を含む要素である。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="対応するUCS" minOccurs="0" maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>
+										MJ文字図形名が対応するISO/IEC 10646:2017のUCS符号位置。「U+」に続けてISO/IEC 10646:2017の16進でUCS符号位置を記した。
+										MJ文字情報一覧表 項目一覧「対応するUCS」に対応する。
+									</xs:documentation>
+								</xs:annotation>
+
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="対応するUCS値型">
+											<xs:attribute name="対応カテゴリー" type="UCS対応カテゴリー型" use="required">
+												<xs:annotation>
+													<xs:documentation>
+														「対応するUCS」要素の確度のカテゴリーを示す属性。MJ文字情報一覧表 項目一覧の「UCS対応カテゴリー」に対応する。
+
+														【カテゴリーA】
+
+														平成23年度から平成26年度までの文字情報基盤整備事業で確認済みのもの。
+
+														【カテゴリーU】
+
+														前バージョンまでの符号位置に対して統合の疑念が生じ、情報規格調査会SC2専門委員会がUCSへの新規符号化提案を行なっているもの。ISO/IEC 10646 5th Edition Amendment 2(第5版追補2)に含まれる予定である。
+													</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="対応する互換漢字" type="UCS型" minOccurs="0" maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>
+										MJ文字図形名が対応するISO/IEC 10646:2017のCJK Compatible IdeogpraphsのUCS符号位置
+										MJ文字情報一覧表 項目一覧「対応する互換漢字」に対応する。
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="IPAmj明朝フォント実装" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名とIPAmj明朝フォントの実装に関する情報を含む要素。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="実装したUCS" type="UCS型" minOccurs="0" maxOccurs="1">
+								<xs:annotation>
+									<xs:documentation>
+								 	MJ文字図形に対して割り当てたUCS符号位置を記した。
+									同一のUCSコードを持つ図形が複数ある場合において、フォント実装において対応付ける図形（デフォルトグリフ）は、下記の優先順位により決定した。
+
+									1. 常用漢字表に掲載されている字形
+									2. 人名用漢字別表（戸籍法施行規則別表第二漢字の表）に掲載されている字形
+									3. 住民基本台帳ネットワークシステム統一文字コードと対応するUCSが一致する字形
+									4. JIS X 0213:2012に掲載されている例示字形
+									5. UCSのJ欄（日本提案の字体）に掲載されている例示字形
+									6. 法務省告示第582号別表第一に掲載されている字形
+									7. 康煕字典体
+									8. 「市区町村が使用する外字の実態調査」の出現頻度
+									
+									MJ文字情報一覧表 項目一覧の「実装したUCS」に対応する。
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							
+							<xs:element name="実装したSVS" type="SVS型" minOccurs="0" maxOccurs="1">
+								<xs:annotation><xs:documentation>
+								 	MJ文字図形に対して割り当てたStandardized Variation Sequnce (SVS)を記した。（ISO/IEC 10646:2014, p.23, 16.6.2 Standardized variation sequences）
+									MJ文字情報一覧表 項目一覧の「実装したSVS」に対応する。
+								</xs:documentation></xs:annotation>
+							</xs:element>
+							
+							<xs:element name="実装したMoji_JohoIVS" type="IVS型" minOccurs="0" maxOccurs="2">
+								<xs:annotation><xs:documentation>
+									Unicode ConsortiumのIVD Version 2017-12-12のMoji_Johoコレクションにより実装したIVSを記した。
+									MJ文字情報一覧表 項目一覧の「実装したMoji_JohoコレクションIVS」に対応する。
+								</xs:documentation></xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="フォントバージョン" type="IPAmj明朝フォントバージョン型" use="required">
+							<xs:annotation>
+								<xs:documentation>
+								MJ文字図形名が子要素の値により実際に符号化実装が行われているIPAmj明朝フォントのバージョンを記したもの。MJ文字情報一覧表の項目一覧には存在しない情報。
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="MJ文字図形" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							MJ文字図形名に対するAPIが提供するPNG画像のURIを記した。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:anyURI">
+								<xs:attribute name="MJ文字図形バージョン" type="MJ文字図形バージョン型" use="required">
+									<xs:annotation>
+										<xs:documentation>
+										 IPAmj明朝フォントおよびSVG図形ファイルに収録した文字図形（MJ文字図形）のバージョンを記した。
+										MJ文字情報一覧表 項目一覧の「MJ文字図形バージョン」に対応する。
+										</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="登記統一文字番号" type="登記統一文字番号型" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+						MJ文字図形に対応する登記統一文字番号。
+						MJ文字情報一覧表 項目一覧の「登記統一文字番号(参考)」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+
+				<xs:element name="部首内画数" minOccurs="1" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字図形名に対応する部首と部首内画数の情報。
+							MJ文字情報一覧表 項目一覧の「部首(参考)」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="部首" type="康煕部首型" use="required">
+							<xs:annotation>
+								<xs:documentation xml:lang="ja">
+								MJ文字情報一覧表 項目一覧の「部首(参考)」に対応する。
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="内画数" type="xs:nonNegativeInteger">
+							<xs:annotation>
+								<xs:documentation xml:lang="ja">
+								部首属性に対応する部首内画数を記したもの。
+								MJ文字情報一覧表XSLX版・ODS版で「ー」となっている場合は、内画数が不定の場合を示すが、この属性は値を持たない。
+								MJ文字情報一覧表 項目一覧の「内画数(参考)」に対応する。
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="総画数" type="xs:positiveInteger" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+						総画数欄には文字の総画数を記した。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+
+				<xs:element name="読み" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+						MJ文字図形の読みを記す要素。原則として、音読みは片仮名で音読み要素に、訓読みは平仮名で訓読み要素に記載した。
+						MJ文字情報一覧表 項目一覧の「読み(参考)」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="音読み" type="カタカナ" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="訓読み" type="ひらがな" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="大漢和" type="大漢和検字番号型" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字図形名が対応する諸橋轍次『大漢和辞典』（修訂第二版第六刷、大修館書店、2001年）及び鎌田正・米山寅太郎『大漢和辞典補巻』（初版、大修館書店、2000年）の親字番号
+							MJ文字情報一覧表 項目一覧の「大漢和」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="日本語漢字辞典" type="日本語漢字辞典検字番号型" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字図形名が対応する新潮社編「新潮日本語漢字辞典」（第四刷、新潮社、2008年）の検字番号
+							MJ文字情報一覧表 項目一覧の「日本語漢字辞典」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="新大字典" type="新大字典検字番号型" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字図形名が対応する「講談社新大字典」（普及第4刷、講談社、1993年）の検字番号
+							MJ文字情報一覧表 項目一覧の「新大字典」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="大字源" type="大字源検字番号型" minOccurs="0" maxOccurs="1" >
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字図形名が対応する「角川大字源」（再版、角川書店、1992年）の検字番号
+							MJ文字情報一覧表 項目一覧の「大字源」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="大漢語林" type="大漢語林検字番号型" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字図形名が対応する「大漢語林」（初版、大修館書店、1992年）の親字番号
+							MJ文字情報一覧表 項目一覧の「大漢語林」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="更新履歴" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字情報の各要素・属性について、過去に変更された情報の履歴を記録する。変更のあった事項毎に、バージョン番号と更新情報の組で記載。
+							更新情報に変更内容を記し、属性のバージョンに変更が行われた時のMJ文字情報一覧表バージョン番号を記載。
+							MJ文字情報一覧表 項目一覧の「更新履歴」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="更新情報" minOccurs="1" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="バージョン" type="MJ文字情報一覧表バージョン型" use="required"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="備考" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="ja">
+							MJ文字情報全体に関する情報及び各項目の値等に関する補足的な説明を記載する。
+							MJ文字情報一覧表 項目一覧の「備考」に対応する。
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+
+		</xs:complexType>
+	</xs:element><!-- 文字情報 -->
+	
+
+	<xs:simpleType name="MJ文字情報一覧表バージョン型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{3}\.[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IPAmj明朝フォントバージョン型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{3}\.[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MJ文字図形バージョン型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]*\.[0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="MJ文字図形名型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="MJ\d{6}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="空型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="戸籍統一文字番号型">
+		<xs:annotation><xs:documentation>戸籍統一文字番号は、10進数6桁で表現される。</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{6}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="住基ネット統一文字コード型">
+		<xs:annotation>
+			<xs:documentation>住民基本台帳ネットワークシステム統一文字コードを"J+"に続く4桁の16進数で表現した。</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="J\+[0-9A-F]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="入管正字コード型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-F]{4,5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="入管外字コード型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-F]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="登記統一文字番号型">
+		<xs:annotation><xs:documentation>登記統一文字番号は，10進数8桁で表現される。</xs:documentation></xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\d{8}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="漢字施策型">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="常用漢字"/>
+			<xs:enumeration value="人名用漢字"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:simpleType name="JISX0213型">
+		<xs:annotation>
+			<xs:documentation>JIS X 0213:2012に定義された面区点コード</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[1-2]-[0-9]{2}-[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="JISX0213包摂連番型">
+		<xs:annotation>
+			<xs:documentation>JIS X 0213:2012「6.6.3 漢字の字体の包摂規準」に示された包摂規準一覧の連番を"U"に続く、10進数3桁で表現したもの。</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="U[0-9]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="JISX0213包摂区分型">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="JISX0213水準型">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="JISX0212型">
+		<xs:annotation>
+			<xs:documentation>JIS X 0212-1990に定義された区点コード</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{2}-[0-9]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:simpleType name="UCS型">
+		<xs:annotation>
+			<xs:documentation>ISO/IEC 10646:2014の符号位置</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="U\+[0-9A-F]{4,5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SVS型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-F]{4,5}_FE0[0-9A-F]{1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IVS型">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-F]{4,5}_E01[0-9A-F]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="UCS対応カテゴリー型">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="A"/>
+			<xs:enumeration value="U"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="康煕部首型">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:maxInclusive value="214"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ひらがな">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[&#x3041;-&#x3096;&#x3099;-&#x309f;&#x30fc;]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="カタカナ">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[&#x30a0;-&#x30ff;]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="大漢和検字番号型">
+		<xs:annotation>
+			<xs:documentation>urn:isbn:978-4-469-03158-4の各見出し字に附番された檢字番號</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="&#x88dc;{0,1}[0-9]{1,5}'{0,2}#{0,1}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="日本語漢字辞典検字番号型">
+		<xs:annotation>
+			<xs:documentation>urn:isbn:978-410-730215-1の親字に付けた一連の番号</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="新大字典検字番号型">
+		<xs:annotation>
+			<xs:documentation>urn:isbn:4-06-123141-3の検字番号</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="大字源検字番号型">
+		<xs:annotation>
+			<xs:documentation>urn:isbn:4-04-012800-1の検字番号</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="大漢語林検字番号型">
+		<xs:annotation>
+			<xs:documentation>urn:isbn:4-469-03154-2の親字番号</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:positiveInteger">
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="対応するUCS値型">
+		<xs:union memberTypes="UCS型 空型"/>
+	</xs:simpleType>
+</xs:schema>
