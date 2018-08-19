@@ -1,4 +1,4 @@
-# MJIReader
+# MJIReader [![Build Status](https://travis-ci.org/ksgwr/MJIReader.svg?branch=master)](https://travis-ci.org/ksgwr/MJIReader)
 ## 概要
 IPA 独立行政法人情報処理推進機構から提供される[MJ文字情報一覧表](https://mojikiban.ipa.go.jp/1311.html)、[MJ縮退マップ](https://mojikiban.ipa.go.jp/4144.html)を使用し異体字・外字・正字を扱うためのクラスを提供します。読みや画数、部首などの情報も取れるため形態素解析できなかった単語に関して文字素性を取得することにも利用が可能かもしれません。
 
